@@ -1,6 +1,10 @@
 const R = require('ramda');
 const admin = require("../../auth/config")
-const { SECRET_KEY } = require("../../infra/envs")
+const { cipher, decipher } = require("../../utils/ciphers")
+const { SECRET_KEY, CIPHER_SALT } = require("../../infra/envs")
+
+const myCipher = cipher(CIPHER_SALT);
+const myDecipher = decipher(CIPHER_SALT);
 
 const create = (req, res, next) => {
   if (req.headers.secretkey && req.headers.secretkey === SECRET_KEY) {
@@ -19,18 +23,20 @@ const create = (req, res, next) => {
   }
 }
 
-const createUser = (database, { username, password, email='' }) => {
+const createUser = (database, { username, password, email }) => {
   // A user entry - ideally pull from schema
   const user = {
     username,
-    password,
+    password: myCipher(password),
     email,
-    createdAt: Date.now()
+    createdAt: new Date().toISOString()
   };
 
   database.ref('users/' + username).set(user)
     .then(() => {
-      console.log(`User created with username: ${username}`);
+      // I understand its bad form to log the password but the request is coming in as plain text
+      // and want to prove the cipher works!
+      console.log(`User created with\nusername: ${username}\npassword: ${myDecipher(user.password)}`);
     })
     .catch((e) => {
       console.error(`Error creating user: ${e}`);
