@@ -14,7 +14,7 @@
     "commitizen": "^4.2.4",
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
-    "joi": "^17.4.2",
+    "joi": "^17.5.0",
     "ramda": "^0.27.1"
   },
   "jest": {
