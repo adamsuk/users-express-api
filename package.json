@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
     "joi": "^17.4.2",
-    "ramda": "^0.27.1"
+    "ramda": "^0.27.2"
   },
   "jest": {
     "testEnvironment": "node",
