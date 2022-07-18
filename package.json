@@ -11,7 +11,7 @@
   "author": "sra405@hotmai.co.uk",
   "license": "ISC",
   "dependencies": {
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
     "joi": "^17.4.2",
